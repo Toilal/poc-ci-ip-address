@@ -1,0 +1,46 @@
+name: ci
+on:
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    name: Build
+
+    steps:
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Cache yarn
+        uses: actions/cache@v3
+        with:
+          path: '.yarn/cache'
+          key: ${{ runner.os }}-yarn-cache-ci-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-cache-ci
+
+      - name: Corepack
+        run: |
+          corepack enable
+          corepack prepare
+
+      - name: Yarn install
+        run: |
+          yarn install
+
+      - name: Check
+        run: |
+          IP=$(yarn ip)
+          yarn server &
+          docker run wbitt/network-multitool:alpine-extra nc -vv $IP 5555
+          
+

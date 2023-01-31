@@ -1,0 +1,12 @@
+node_modules/
+dist/
+
+# Don't commit any yarn.lock from packages as we are using yarn workspace
+/packages/**/yarn.lock
+/**/.yarn/*
+!/**/.yarn/releases
+!/**/.yarn/plugins
+!/**/.yarn/sdks
+!/**/.yarn/versions
+!/**/.yarn/patches
+.pnp.*

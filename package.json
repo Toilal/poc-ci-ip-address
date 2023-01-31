@@ -1,0 +1,13 @@
+{
+  "packageManager": "yarn@3.3.1",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "get-port": "^6.1.2",
+    "tsx": "^3.12.2"
+  },
+  "scripts": {
+    "server": "tsx ./server.ts",
+    "ip": "tsx ./ip.ts"
+  }
+}
